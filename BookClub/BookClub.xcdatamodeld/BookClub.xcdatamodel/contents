@@ -3,8 +3,8 @@
     <entity name="Book" representedClassName="Book" syncable="YES">
         <attribute name="author" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
-        <relationship name="comments" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Comment" inverseName="book" inverseEntity="Comment" syncable="YES"/>
-        <relationship name="friends" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Friend" inverseName="books" inverseEntity="Friend" syncable="YES"/>
+        <relationship name="comments" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Comment" inverseName="book" inverseEntity="Comment" syncable="YES"/>
+        <relationship name="friends" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Friend" inverseName="books" inverseEntity="Friend" syncable="YES"/>
     </entity>
     <entity name="Comment" representedClassName="Comment" syncable="YES">
         <attribute name="text" optional="YES" attributeType="String" syncable="YES"/>
@@ -12,11 +12,11 @@
     </entity>
     <entity name="Friend" representedClassName="Friend" syncable="YES">
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
-        <relationship name="books" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Book" inverseName="friends" inverseEntity="Book" syncable="YES"/>
+        <relationship name="books" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Book" inverseName="friends" inverseEntity="Book" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Friend" positionX="-36" positionY="9" width="128" height="73"/>
-        <element name="Book" positionX="0" positionY="45" width="128" height="103"/>
+        <element name="Book" positionX="0" positionY="45" width="128" height="105"/>
         <element name="Comment" positionX="27" positionY="72" width="128" height="73"/>
+        <element name="Friend" positionX="-36" positionY="9" width="128" height="75"/>
     </elements>
 </model>

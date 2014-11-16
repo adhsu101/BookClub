@@ -37,7 +37,7 @@
     [super viewWillAppear:animated];
 
     [self loadMOC];
-    [self.tableView reloadData];
+
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -65,7 +65,9 @@
     request.sortDescriptors = @[sortByName];
 
     self.friends = [[self.moc executeFetchRequest:request error:nil] mutableCopy];
-    
+
+    [self.tableView reloadData];
+
 }
 
 - (void)updateFriends
@@ -89,8 +91,6 @@
         }
 
         [self.moc save:nil];
-        [self loadMOC];
-
     }
 
     // Deleting friends
@@ -103,9 +103,10 @@
         }
 
         [self.moc save:nil];
-        [self loadMOC];
 
     }
+
+    [self loadMOC];
 
 }
 

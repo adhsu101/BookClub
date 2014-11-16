@@ -8,11 +8,13 @@
 
 #import <UIKit/UIKit.h>
 #import "Book.h"
+#import "Friend.h"
 #import "AppDelegate.h"
 
 @interface BookDetailViewController : UIViewController
 
 @property NSManagedObjectContext *moc;
 @property Book *book;
+@property Friend *myFriend;
 
 @end

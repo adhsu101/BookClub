@@ -7,11 +7,14 @@
 //
 
 #import "ProfileViewController.h"
+#import "BookDetailViewController.h"
 
 @interface ProfileViewController () <UITableViewDelegate, UITableViewDataSource>
 
 @property (strong, nonatomic) IBOutlet UIImageView *profileImageView;
 @property (strong, nonatomic) IBOutlet UILabel *nameLabel;
+@property (strong, nonatomic) IBOutlet UITableView *tableView;
+@property NSArray *books;
 
 @end
 
@@ -43,6 +46,24 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     return nil;
+}
+
+#pragma mark - navigation
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+
+    BookDetailViewController *vc = segue.destinationViewController;
+
+    if ([segue.identifier isEqualToString:@"addBookSegue"])
+    {
+        vc.myFriend = self.myFriend;
+    }
+    else
+    {
+        vc.book = self.books[[self.tableView indexPathForSelectedRow].row];
+    }
+
 }
 
 
