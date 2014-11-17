@@ -7,7 +7,8 @@
 //
 
 #import "BookDetailViewController.h"
-#import "AppDelegate.h"
+#import "Comment.h"
+#import "CommentTableViewCell.h"
 
 @interface BookDetailViewController () <UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate>
 
@@ -16,7 +17,6 @@
 @property (strong, nonatomic) IBOutlet UITextField *authorTextField;
 @property (strong, nonatomic) IBOutlet UILabel *authorLabel;
 @property (strong, nonatomic) IBOutlet UILabel *titleLabel;
-@property (strong, nonatomic) IBOutlet UIBarButtonItem *doneButton;
 @property (strong, nonatomic) IBOutlet UIBarButtonItem *cancelButton;
 @property (strong, nonatomic) IBOutlet UIBarButtonItem *saveButton;
 @property (strong, nonatomic) IBOutlet UIBarButtonItem *addButton;
@@ -24,6 +24,7 @@
 @property (strong, nonatomic) IBOutlet UIBarButtonItem *flexibleBarSpace;
 @property (strong, nonatomic) IBOutlet UILabel *addABookLabel;
 @property NSArray *books;
+@property NSMutableArray *commentsForFriend;
 
 @end
 
@@ -44,10 +45,13 @@
     else
     {
         self.moc = self.book.managedObjectContext;
+        [self updateCommentModel];
         [self.titleTextField setHidden:YES];
         [self.authorTextField setHidden:YES];
         [self.addABookLabel setHidden:YES];
-        self.bottomToolbar.items = @[self.doneButton, self.flexibleBarSpace, self.addButton];
+        self.titleLabel.text = self.book.title;
+        self.authorLabel.text = self.book.author;
+        self.bottomToolbar.items = @[self.flexibleBarSpace, self.addButton];
     }
 
 
@@ -57,18 +61,63 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return self.books.count;
+    if (!self.book)
+    {
+        return self.books.count;
+    }
+    else
+    {
+        return self.commentsForFriend.count;
+    }
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
-    cell.textLabel.text = [self.books[indexPath.row] title];
-    cell.detailTextLabel.text = [self.books[indexPath.row] author];
 
-    return cell;
+    if (!self.book)
+    {
 
+        UITableViewCell *cell = [[UITableViewCell alloc] init];
+        cell = [tableView dequeueReusableCellWithIdentifier:@"bookCell" forIndexPath:indexPath];
+        cell.textLabel.text = [self.books[indexPath.row] title];
+        cell.detailTextLabel.text = [self.books[indexPath.row] author];
+
+        if ([self.myFriend.books containsObject:self.books[indexPath.row]])
+        {
+            cell.accessoryType = UITableViewCellAccessoryCheckmark;
+        }
+        else
+        {
+            cell.accessoryType = UITableViewCellAccessoryNone;
+        }
+
+        return cell;
+
+    }
+    else
+    {
+
+        CommentTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"commentCell" forIndexPath:indexPath];
+        Comment *comment = self.commentsForFriend[indexPath.row];
+        cell.commentTextLabel.text = comment.text;
+
+        return cell;
+
+    }
+
+
+}
+
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
+{
+    if (!self.book)
+    {
+        return @"Or choose from existing";
+    }
+    else
+    {
+        return @"Comments";
+    }
 }
 
 #pragma mark - text field delegate methods
@@ -88,24 +137,56 @@
     [sender resignFirstResponder];
 }
 
-- (IBAction)onDoneOrCancelButtonPressed:(UIBarButtonItem *)sender
+- (IBAction)onCancelButtonPressed:(UIBarButtonItem *)sender
 {
-    [self dismissViewControllerAnimated:YES completion:^{
-        nil;
-    }];
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (IBAction)onSaveButtonPressed:(UIBarButtonItem *)sender
 {
     if (![self.titleTextField.text isEqualToString:@""])
     {
-        self.titleTextField.text = @"";
         Book *book = [NSEntityDescription insertNewObjectForEntityForName:NSStringFromClass([Book class]) inManagedObjectContext:self.moc];
         book.title = self.titleTextField.text;
         book.author = self.authorTextField.text;
 
+        [self.myFriend addBooksObject:book];
+        self.book = book;
+        [self.moc save:nil];
         [self loadMOC];
+        self.titleTextField.text = @"";
     }
+
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (IBAction)onAddCommentPressed:(UIBarButtonItem *)sender
+{
+
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Add a comment" message:nil preferredStyle:UIAlertControllerStyleAlert];
+
+    [alert addTextFieldWithConfigurationHandler:nil];
+
+    UIAlertAction *okButton = [UIAlertAction actionWithTitle:@"OK"
+                                                       style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+                                                           Comment *comment = [NSEntityDescription insertNewObjectForEntityForName:NSStringFromClass([Comment class]) inManagedObjectContext:self.moc];
+
+                                                           UITextField *textfield = alert.textFields.firstObject;
+                                                           comment.text = textfield.text;
+                                                           [self.book addCommentsObject:comment];
+                                                           [self.myFriend addCommentsObject:comment];
+                                                           [self.moc save:nil];
+
+                                                           [self updateCommentModel];
+                                                           [self.tableView reloadData];
+    }];
+
+    UIAlertAction *cancelButton = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:nil];
+
+    [alert addAction:cancelButton];
+    [alert addAction:okButton];
+
+    [self presentViewController:alert animated:YES completion:nil];
 }
 
 #pragma mark - helper methods
@@ -123,5 +204,20 @@
 
 }
 
+- (void)updateCommentModel
+{
 
+    self.commentsForFriend = [@[]mutableCopy];
+    NSArray *allCommentsForBook = [self.book.comments allObjects];
+    NSArray *allFriendComments = [self.myFriend.comments allObjects];
+    for (Comment *comment in allCommentsForBook)
+    {
+        if ([allFriendComments containsObject:comment])
+        {
+            [self.commentsForFriend addObject:comment];
+        }
+
+    }
+
+}
 @end

@@ -8,13 +8,14 @@
 
 #import "ProfileViewController.h"
 #import "BookDetailViewController.h"
+#import "Book.h"
 
 @interface ProfileViewController () <UITableViewDelegate, UITableViewDataSource>
 
 @property (strong, nonatomic) IBOutlet UIImageView *profileImageView;
 @property (strong, nonatomic) IBOutlet UILabel *nameLabel;
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
-@property NSArray *books;
+@property NSArray *recommendedBooks;
 
 @end
 
@@ -30,22 +31,43 @@
 
 }
 
-- (void)didReceiveMemoryWarning
+- (void)viewWillAppear:(BOOL)animated
 {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+
+    NSArray *array = [self.myFriend.books allObjects];
+    NSSortDescriptor *valueDescriptor = [[NSSortDescriptor alloc] initWithKey:@"title" ascending:YES];
+    NSArray *descriptors = [NSArray arrayWithObject:valueDescriptor];
+    self.recommendedBooks = [array sortedArrayUsingDescriptors:descriptors];
+
 }
 
 #pragma mark - table view delegate methods
 
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
+{
+    if (section == 0)
+    {
+        return @"Recommended books";
+    }
+    else
+    {
+        return nil;
+    }
+}
+
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 0;
+    return self.recommendedBooks.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return nil;
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
+    cell.textLabel.text = [self.recommendedBooks[indexPath.row] title];
+    cell.detailTextLabel.text = [self.recommendedBooks[indexPath.row] author];
+
+    return cell;
+
 }
 
 #pragma mark - navigation
@@ -55,14 +77,12 @@
 
     BookDetailViewController *vc = segue.destinationViewController;
 
-    if ([segue.identifier isEqualToString:@"addBookSegue"])
+    if ([segue.identifier isEqualToString:@"commentSegue"])
     {
-        vc.myFriend = self.myFriend;
+        vc.book = self.recommendedBooks[[self.tableView indexPathForSelectedRow].row];
     }
-    else
-    {
-        vc.book = self.books[[self.tableView indexPathForSelectedRow].row];
-    }
+
+    vc.myFriend = self.myFriend;
 
 }
 

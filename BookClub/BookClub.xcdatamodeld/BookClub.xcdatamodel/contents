@@ -9,14 +9,16 @@
     <entity name="Comment" representedClassName="Comment" syncable="YES">
         <attribute name="text" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="book" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Book" inverseName="comments" inverseEntity="Book" syncable="YES"/>
+        <relationship name="friend" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Friend" inverseName="comments" inverseEntity="Friend" syncable="YES"/>
     </entity>
     <entity name="Friend" representedClassName="Friend" syncable="YES">
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="books" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Book" inverseName="friends" inverseEntity="Book" syncable="YES"/>
+        <relationship name="comments" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Comment" inverseName="friend" inverseEntity="Comment" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Book" positionX="0" positionY="45" width="128" height="105"/>
-        <element name="Comment" positionX="27" positionY="72" width="128" height="73"/>
-        <element name="Friend" positionX="-36" positionY="9" width="128" height="75"/>
+        <element name="Book" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="Comment" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="Friend" positionX="0" positionY="0" width="0" height="0"/>
     </elements>
 </model>

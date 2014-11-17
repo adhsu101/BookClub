@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8D0C9BF41A1983FC006E7F0C /* CommentTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D0C9BF31A1983FC006E7F0C /* CommentTableViewCell.m */; };
+		8D0C9BF71A1988A7006E7F0C /* Friend.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D0C9BF61A1988A7006E7F0C /* Friend.m */; };
+		8D0C9BFA1A1988A7006E7F0C /* Book.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D0C9BF91A1988A7006E7F0C /* Book.m */; };
+		8D0C9BFD1A1988A7006E7F0C /* Comment.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D0C9BFC1A1988A7006E7F0C /* Comment.m */; };
 		8D862A061A140FED00AFD1FB /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D862A051A140FED00AFD1FB /* main.m */; };
 		8D862A091A140FED00AFD1FB /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D862A081A140FED00AFD1FB /* AppDelegate.m */; };
 		8D862A0C1A140FED00AFD1FB /* BookClub.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 8D862A0A1A140FED00AFD1FB /* BookClub.xcdatamodeld */; };
@@ -19,9 +23,6 @@
 		8D862A341A14176A00AFD1FB /* ProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D862A331A14176A00AFD1FB /* ProfileViewController.m */; };
 		8D862A371A14188600AFD1FB /* PeopleTableTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D862A361A14188600AFD1FB /* PeopleTableTableViewController.m */; };
 		8D862A391A141ADD00AFD1FB /* people.json in Resources */ = {isa = PBXBuildFile; fileRef = 8D862A381A141ADD00AFD1FB /* people.json */; };
-		8D862A3C1A142AFD00AFD1FB /* Book.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D862A3B1A142AFD00AFD1FB /* Book.m */; };
-		8D862A3F1A142AFE00AFD1FB /* Comment.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D862A3E1A142AFE00AFD1FB /* Comment.m */; };
-		8D862A421A142AFE00AFD1FB /* Friend.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D862A411A142AFE00AFD1FB /* Friend.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -35,6 +36,14 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		8D0C9BF21A1983FC006E7F0C /* CommentTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CommentTableViewCell.h; path = ../CommentTableViewCell.h; sourceTree = "<group>"; };
+		8D0C9BF31A1983FC006E7F0C /* CommentTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CommentTableViewCell.m; path = ../CommentTableViewCell.m; sourceTree = "<group>"; };
+		8D0C9BF51A1988A7006E7F0C /* Friend.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Friend.h; sourceTree = "<group>"; };
+		8D0C9BF61A1988A7006E7F0C /* Friend.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Friend.m; sourceTree = "<group>"; };
+		8D0C9BF81A1988A7006E7F0C /* Book.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Book.h; sourceTree = "<group>"; };
+		8D0C9BF91A1988A7006E7F0C /* Book.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Book.m; sourceTree = "<group>"; };
+		8D0C9BFB1A1988A7006E7F0C /* Comment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Comment.h; sourceTree = "<group>"; };
+		8D0C9BFC1A1988A7006E7F0C /* Comment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Comment.m; sourceTree = "<group>"; };
 		8D862A001A140FED00AFD1FB /* BookClub.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BookClub.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8D862A041A140FED00AFD1FB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8D862A051A140FED00AFD1FB /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -56,12 +65,6 @@
 		8D862A351A14188600AFD1FB /* PeopleTableTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PeopleTableTableViewController.h; path = ../PeopleTableTableViewController.h; sourceTree = "<group>"; };
 		8D862A361A14188600AFD1FB /* PeopleTableTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PeopleTableTableViewController.m; path = ../PeopleTableTableViewController.m; sourceTree = "<group>"; };
 		8D862A381A141ADD00AFD1FB /* people.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = people.json; path = ../people.json; sourceTree = "<group>"; };
-		8D862A3A1A142AFD00AFD1FB /* Book.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Book.h; sourceTree = "<group>"; };
-		8D862A3B1A142AFD00AFD1FB /* Book.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Book.m; sourceTree = "<group>"; };
-		8D862A3D1A142AFE00AFD1FB /* Comment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Comment.h; sourceTree = "<group>"; };
-		8D862A3E1A142AFE00AFD1FB /* Comment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Comment.m; sourceTree = "<group>"; };
-		8D862A401A142AFE00AFD1FB /* Friend.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Friend.h; sourceTree = "<group>"; };
-		8D862A411A142AFE00AFD1FB /* Friend.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Friend.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -114,6 +117,8 @@
 				8D862A361A14188600AFD1FB /* PeopleTableTableViewController.m */,
 				8D862A2F1A14164500AFD1FB /* BookDetailViewController.h */,
 				8D862A301A14164500AFD1FB /* BookDetailViewController.m */,
+				8D0C9BF21A1983FC006E7F0C /* CommentTableViewCell.h */,
+				8D0C9BF31A1983FC006E7F0C /* CommentTableViewCell.m */,
 				8D862A131A140FED00AFD1FB /* Images.xcassets */,
 				8D862A151A140FED00AFD1FB /* LaunchScreen.xib */,
 				8D862A0A1A140FED00AFD1FB /* BookClub.xcdatamodeld */,
@@ -153,12 +158,12 @@
 		8D862A431A142B0700AFD1FB /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				8D862A401A142AFE00AFD1FB /* Friend.h */,
-				8D862A411A142AFE00AFD1FB /* Friend.m */,
-				8D862A3D1A142AFE00AFD1FB /* Comment.h */,
-				8D862A3E1A142AFE00AFD1FB /* Comment.m */,
-				8D862A3A1A142AFD00AFD1FB /* Book.h */,
-				8D862A3B1A142AFD00AFD1FB /* Book.m */,
+				8D0C9BFB1A1988A7006E7F0C /* Comment.h */,
+				8D0C9BFC1A1988A7006E7F0C /* Comment.m */,
+				8D0C9BF81A1988A7006E7F0C /* Book.h */,
+				8D0C9BF91A1988A7006E7F0C /* Book.m */,
+				8D0C9BF51A1988A7006E7F0C /* Friend.h */,
+				8D0C9BF61A1988A7006E7F0C /* Friend.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -264,15 +269,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8D0C9BFA1A1988A7006E7F0C /* Book.m in Sources */,
 				8D862A341A14176A00AFD1FB /* ProfileViewController.m in Sources */,
-				8D862A421A142AFE00AFD1FB /* Friend.m in Sources */,
 				8D862A091A140FED00AFD1FB /* AppDelegate.m in Sources */,
+				8D0C9BFD1A1988A7006E7F0C /* Comment.m in Sources */,
 				8D862A0C1A140FED00AFD1FB /* BookClub.xcdatamodeld in Sources */,
+				8D0C9BF71A1988A7006E7F0C /* Friend.m in Sources */,
+				8D0C9BF41A1983FC006E7F0C /* CommentTableViewCell.m in Sources */,
 				8D862A371A14188600AFD1FB /* PeopleTableTableViewController.m in Sources */,
-				8D862A3C1A142AFD00AFD1FB /* Book.m in Sources */,
 				8D862A0F1A140FED00AFD1FB /* FriendsTableViewController.m in Sources */,
 				8D862A061A140FED00AFD1FB /* main.m in Sources */,
-				8D862A3F1A142AFE00AFD1FB /* Comment.m in Sources */,
 				8D862A311A14164500AFD1FB /* BookDetailViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
