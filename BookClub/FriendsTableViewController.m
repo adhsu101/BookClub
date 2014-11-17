@@ -12,7 +12,7 @@
 #import "Friend.h"
 #import "AppDelegate.h"
 
-@interface FriendsTableViewController () <UITableViewDelegate, UITableViewDataSource>
+@interface FriendsTableViewController () <UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate>
 
 @property NSManagedObjectContext *moc;
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
@@ -20,6 +20,7 @@
 @property NSMutableArray *friendNames;
 @property (strong, nonatomic) IBOutlet UIBarButtonItem *sortButton;
 @property (strong, nonatomic) IBOutlet UIToolbar *sortToolbar;
+@property (strong, nonatomic) IBOutlet UISearchBar *searchBar;
 
 @end
 
@@ -32,6 +33,16 @@
     self.friends = [NSMutableArray array];
     AppDelegate *delegate = [[UIApplication sharedApplication] delegate];
     self.moc = delegate.managedObjectContext;
+
+    [self.view addSubview:self.sortToolbar];
+    [self.view addSubview:self.searchBar];
+
+    CGFloat screenWidth = [[UIScreen mainScreen] bounds].size.width;
+    self.sortToolbar.frame = CGRectMake(0, self.navigationController.navigationBar.frame.size.height + [UIApplication sharedApplication].statusBarFrame.size.height - self.sortToolbar.frame.size.height, screenWidth, self.sortToolbar.frame.size.height);
+    self.sortToolbar.alpha = 0.0;
+    self.searchBar.frame = CGRectMake(0, self.navigationController.navigationBar.frame.size.height + [UIApplication sharedApplication].statusBarFrame.size.height - self.searchBar.frame.size.height, screenWidth, self.sortToolbar.frame.size.height);
+    self.searchBar.alpha = 0.0;
+
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -40,17 +51,15 @@
 
     [self loadMOC];
 
+
 }
 
 - (void)viewDidLayoutSubviews
 {
-    [self.view addSubview:self.sortToolbar];
-
-    CGFloat screenWidth = [[UIScreen mainScreen] bounds].size.width;
-    self.sortToolbar.frame = CGRectMake(0, self.navigationController.navigationBar.frame.size.height + [UIApplication sharedApplication].statusBarFrame.size.height - self.sortToolbar.frame.size.height, screenWidth, self.sortToolbar.frame.size.height);
-    self.sortToolbar.alpha = 0.0;
 
 }
+
+#pragma mark - table view methods
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
@@ -66,6 +75,14 @@
     cell.detailTextLabel.text = [NSString stringWithFormat:@"%lu", (unsigned long)myFriend.books.count];
 
     return cell;
+}
+
+#pragma mark - search bar methods
+
+- (BOOL)searchBarShouldBeginEditing:(UISearchBar *)searchBar
+{
+
+    return YES;
 }
 
 #pragma mark - helper methods
@@ -126,6 +143,35 @@
 
 }
 
+- (void)showSortBars
+{
+    [UIView animateWithDuration:0.2 animations:^{
+        self.sortToolbar.frame = CGRectMake(0, self.navigationController.navigationBar.frame.size.height + [UIApplication sharedApplication].statusBarFrame.size.height, self.sortToolbar.frame.size.width, self.sortToolbar.frame.size.height);
+        self.sortToolbar.alpha = 1.0;
+
+        self.searchBar.frame = CGRectMake(0, self.navigationController.navigationBar.frame.size.height + [UIApplication sharedApplication].statusBarFrame.size.height + self.sortToolbar.frame.size.height, self.sortToolbar.frame.size.width, self.sortToolbar.frame.size.height);
+//        self.searchBar.showsScopeBar = YES;
+//        self.searchBar.scopeButtonTitles = @[@"Name", @"Number of Books"];
+        self.searchBar.alpha = 1.0;
+
+        [self.tableView setContentInset:UIEdgeInsetsMake(self.tableView.contentInset.top + self.sortToolbar.frame.size.height + self.searchBar.frame.size.height, 0, 0, 0)];
+    }];
+}
+
+- (void)hideSortBars
+{
+    [UIView animateWithDuration:0.2 animations:^{
+        self.sortToolbar.frame = CGRectMake(0, self.navigationController.navigationBar.frame.size.height + [UIApplication sharedApplication].statusBarFrame.size.height - self.sortToolbar.frame.size.height, self.sortToolbar.frame.size.width, self.sortToolbar.frame.size.height);
+        self.sortToolbar.alpha = 0.0;
+
+        self.searchBar.frame = CGRectMake(0, self.navigationController.navigationBar.frame.size.height + [UIApplication sharedApplication].statusBarFrame.size.height - self.searchBar.frame.size.height, self.sortToolbar.frame.size.width, self.sortToolbar.frame.size.height);
+        self.searchBar.alpha = 0.0;
+
+        [self.tableView setContentInset:UIEdgeInsetsMake(self.navigationController.navigationBar.frame.size.height + [UIApplication sharedApplication].statusBarFrame.size.height, 0, 0, 0)];
+    }];
+}
+
+
 #pragma mark - IBActions
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
@@ -150,19 +196,11 @@
 {
     if (self.sortToolbar.alpha == 0.0)
     {
-        [UIView animateWithDuration:0.2 animations:^{
-            self.sortToolbar.frame = CGRectMake(0, self.navigationController.navigationBar.frame.size.height + [UIApplication sharedApplication].statusBarFrame.size.height, self.sortToolbar.frame.size.width, self.sortToolbar.frame.size.height);
-            self.sortToolbar.alpha = 1.0;
-            [self.tableView setContentInset:UIEdgeInsetsMake(self.tableView.contentInset.top + self.sortToolbar.frame.size.height, 0, 0, 0)];
-        }];
+        [self showSortBars];
     }
     else
     {
-        [UIView animateWithDuration:0.2 animations:^{
-            self.sortToolbar.frame = CGRectMake(0, self.navigationController.navigationBar.frame.size.height + [UIApplication sharedApplication].statusBarFrame.size.height - self.sortToolbar.frame.size.height, self.sortToolbar.frame.size.width, self.sortToolbar.frame.size.height);
-            self.sortToolbar.alpha = 0.0;
-            [self.tableView setContentInset:UIEdgeInsetsMake(self.navigationController.navigationBar.frame.size.height + [UIApplication sharedApplication].statusBarFrame.size.height, 0, 0, 0)];
-        }];
+        [self hideSortBars];
 
     }
 }

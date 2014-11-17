@@ -86,6 +86,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="searchBar" destination="gDY-rv-96J" id="LD0-0b-c8r"/>
                         <outlet property="sortButton" destination="j96-Gs-AhI" id="dG9-AD-uQt"/>
                         <outlet property="sortToolbar" destination="1hC-YL-MlE" id="TVv-dy-VlQ"/>
                         <outlet property="tableView" destination="sDt-vg-SgU" id="0N4-3P-Srv"/>
@@ -110,6 +111,14 @@
                         <barButtonItem style="plain" systemItem="flexibleSpace" id="WE4-Hq-VMw"/>
                     </items>
                 </toolbar>
+                <searchBar contentMode="redraw" id="gDY-rv-96J">
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                    <textInputTraits key="textInputTraits"/>
+                    <connections>
+                        <outlet property="delegate" destination="vXZ-lx-hvc" id="nai-RR-ZiT"/>
+                    </connections>
+                </searchBar>
             </objects>
             <point key="canvasLocation" x="766" y="366"/>
         </scene>
