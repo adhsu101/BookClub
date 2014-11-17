@@ -18,6 +18,8 @@
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
 @property NSMutableArray *friends;
 @property NSMutableArray *friendNames;
+@property (strong, nonatomic) IBOutlet UIBarButtonItem *sortButton;
+@property (strong, nonatomic) IBOutlet UIToolbar *sortToolbar;
 
 @end
 
@@ -37,6 +39,16 @@
     [super viewWillAppear:animated];
 
     [self loadMOC];
+
+}
+
+- (void)viewDidLayoutSubviews
+{
+    [self.view addSubview:self.sortToolbar];
+
+    CGFloat screenWidth = [[UIScreen mainScreen] bounds].size.width;
+    self.sortToolbar.frame = CGRectMake(0, self.navigationController.navigationBar.frame.size.height + [UIApplication sharedApplication].statusBarFrame.size.height - self.sortToolbar.frame.size.height, screenWidth, self.sortToolbar.frame.size.height);
+    self.sortToolbar.alpha = 0.0;
 
 }
 
@@ -131,6 +143,27 @@
         ProfileViewController *vc = segue.destinationViewController;
         vc.myFriend = myFriend;
         vc.moc = self.moc;
+    }
+}
+
+- (IBAction)onSortButtonPressed:(UIBarButtonItem *)sender
+{
+    if (self.sortToolbar.alpha == 0.0)
+    {
+        [UIView animateWithDuration:0.2 animations:^{
+            self.sortToolbar.frame = CGRectMake(0, self.navigationController.navigationBar.frame.size.height + [UIApplication sharedApplication].statusBarFrame.size.height, self.sortToolbar.frame.size.width, self.sortToolbar.frame.size.height);
+            self.sortToolbar.alpha = 1.0;
+            [self.tableView setContentInset:UIEdgeInsetsMake(self.tableView.contentInset.top + self.sortToolbar.frame.size.height, 0, 0, 0)];
+        }];
+    }
+    else
+    {
+        [UIView animateWithDuration:0.2 animations:^{
+            self.sortToolbar.frame = CGRectMake(0, self.navigationController.navigationBar.frame.size.height + [UIApplication sharedApplication].statusBarFrame.size.height - self.sortToolbar.frame.size.height, self.sortToolbar.frame.size.width, self.sortToolbar.frame.size.height);
+            self.sortToolbar.alpha = 0.0;
+            [self.tableView setContentInset:UIEdgeInsetsMake(self.navigationController.navigationBar.frame.size.height + [UIApplication sharedApplication].statusBarFrame.size.height, 0, 0, 0)];
+        }];
+
     }
 }
 

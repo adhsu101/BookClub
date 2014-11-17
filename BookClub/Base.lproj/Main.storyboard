@@ -78,12 +78,38 @@
                             <constraint firstItem="sDt-vg-SgU" firstAttribute="top" secondItem="kh9-bI-dsS" secondAttribute="topMargin" id="vGx-DC-mQg"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="My Book Club" id="IBZ-AE-5Fj"/>
+                    <navigationItem key="navigationItem" title="My Book Club" id="IBZ-AE-5Fj">
+                        <barButtonItem key="leftBarButtonItem" title="Sort" id="j96-Gs-AhI">
+                            <connections>
+                                <action selector="onSortButtonPressed:" destination="vXZ-lx-hvc" id="fEp-dU-5Tz"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
+                        <outlet property="sortButton" destination="j96-Gs-AhI" id="dG9-AD-uQt"/>
+                        <outlet property="sortToolbar" destination="1hC-YL-MlE" id="TVv-dy-VlQ"/>
                         <outlet property="tableView" destination="sDt-vg-SgU" id="0N4-3P-Srv"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
+                <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="1hC-YL-MlE">
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                    <items>
+                        <barButtonItem style="plain" systemItem="flexibleSpace" id="4Pm-pM-ebL"/>
+                        <barButtonItem style="plain" id="I3B-Xp-K1I">
+                            <segmentedControl key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" id="1Mg-IB-chP">
+                                <rect key="frame" x="16" y="7" width="290" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <segments>
+                                    <segment title="By Name"/>
+                                    <segment title="By Number of Books"/>
+                                </segments>
+                            </segmentedControl>
+                        </barButtonItem>
+                        <barButtonItem style="plain" systemItem="flexibleSpace" id="WE4-Hq-VMw"/>
+                    </items>
+                </toolbar>
             </objects>
             <point key="canvasLocation" x="766" y="366"/>
         </scene>
