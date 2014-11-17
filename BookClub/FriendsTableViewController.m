@@ -51,6 +51,7 @@
 
     Friend *myFriend = self.friends[indexPath.row];
     cell.textLabel.text = myFriend.name;
+    cell.detailTextLabel.text = [NSString stringWithFormat:@"%lu", (unsigned long)myFriend.books.count];
 
     return cell;
 }
@@ -65,6 +66,9 @@
     request.sortDescriptors = @[sortByName];
 
     self.friends = [[self.moc executeFetchRequest:request error:nil] mutableCopy];
+
+//    NSSortDescriptor *sortByBookCount = [NSSortDescriptor sortDescriptorWithKey:@"books.@count" ascending:NO];
+//    [self.friends sortedArrayUsingDescriptors:@[sortByBookCount]];
 
     [self.tableView reloadData];
 

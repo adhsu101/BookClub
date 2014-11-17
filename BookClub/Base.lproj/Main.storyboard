@@ -21,11 +21,25 @@
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="cell" id="SJX-qi-Fw9">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="cell" textLabel="7Ef-5P-5hz" detailTextLabel="xf5-Lg-ahZ" style="IBUITableViewCellStyleValue1" id="SJX-qi-Fw9">
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="SJX-qi-Fw9" id="wSz-hM-vvw">
                                             <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="7Ef-5P-5hz">
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Detail" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="xf5-Lg-ahZ">
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                    <color key="textColor" red="0.55686274509803924" green="0.55686274509803924" blue="0.57647058823529407" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
                                         </tableViewCellContentView>
                                         <connections>
                                             <segue destination="H6s-4P-X14" kind="push" id="Jbi-bI-TnU"/>
@@ -105,7 +119,7 @@
                                 <rect key="frame" x="0.0" y="293" width="320" height="275"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="cell" textLabel="9EW-u9-Wh1" detailTextLabel="7rI-x4-n71" style="IBUITableViewCellStyleSubtitle" id="jxK-CF-KPk">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="cell" textLabel="9EW-u9-Wh1" detailTextLabel="7rI-x4-n71" style="IBUITableViewCellStyleValue1" id="jxK-CF-KPk">
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="jxK-CF-KPk" id="WGX-Cd-LeG">
@@ -117,10 +131,10 @@
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Subtitle" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="7rI-x4-n71">
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Subtitle" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="7rI-x4-n71">
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="11"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                    <color key="textColor" red="0.55686274509803924" green="0.55686274509803924" blue="0.57647058823529407" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
@@ -316,7 +330,7 @@
                         <outlet property="authorLabel" destination="DQx-xf-a6J" id="3eP-YO-h8I"/>
                         <outlet property="authorTextField" destination="3JK-ta-KVm" id="6h4-Jr-Flk"/>
                         <outlet property="bottomToolbar" destination="aWw-9A-MyL" id="wto-Pb-koS"/>
-                        <outlet property="cancelButton" destination="meW-kV-BP6" id="OkZ-9W-Nh7"/>
+                        <outlet property="doneButton" destination="meW-kV-BP6" id="ZVg-Jj-aY6"/>
                         <outlet property="flexibleBarSpace" destination="iH3-9N-aB9" id="2oF-t0-UAf"/>
                         <outlet property="saveButton" destination="Okq-aC-vhN" id="UjU-Cb-fC8"/>
                         <outlet property="tableView" destination="j8b-Jc-9G4" id="xoz-qK-U0p"/>
@@ -325,9 +339,9 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="QeW-MQ-WlC" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <barButtonItem title="Item" systemItem="cancel" id="meW-kV-BP6">
+                <barButtonItem title="Done" id="meW-kV-BP6">
                     <connections>
-                        <action selector="onCancelButtonPressed:" destination="KC0-ni-4HM" id="sci-FS-pzQ"/>
+                        <action selector="onDoneButtonPressed:" destination="KC0-ni-4HM" id="QLT-QT-xPk"/>
                     </connections>
                 </barButtonItem>
                 <barButtonItem style="plain" systemItem="flexibleSpace" id="iH3-9N-aB9"/>

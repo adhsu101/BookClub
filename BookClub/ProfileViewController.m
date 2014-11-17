@@ -38,6 +38,7 @@
     NSSortDescriptor *valueDescriptor = [[NSSortDescriptor alloc] initWithKey:@"title" ascending:YES];
     NSArray *descriptors = [NSArray arrayWithObject:valueDescriptor];
     self.recommendedBooks = [array sortedArrayUsingDescriptors:descriptors];
+    [self.tableView reloadData];
 
 }
 

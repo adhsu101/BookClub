@@ -17,7 +17,7 @@
 @property (strong, nonatomic) IBOutlet UITextField *authorTextField;
 @property (strong, nonatomic) IBOutlet UILabel *authorLabel;
 @property (strong, nonatomic) IBOutlet UILabel *titleLabel;
-@property (strong, nonatomic) IBOutlet UIBarButtonItem *cancelButton;
+@property (strong, nonatomic) IBOutlet UIBarButtonItem *doneButton;
 @property (strong, nonatomic) IBOutlet UIBarButtonItem *saveButton;
 @property (strong, nonatomic) IBOutlet UIBarButtonItem *addButton;
 @property (strong, nonatomic) IBOutlet UIToolbar *bottomToolbar;
@@ -40,7 +40,8 @@
         [self loadMOC];
         [self.titleLabel setHidden:YES];
         [self.authorLabel setHidden:YES];
-        self.bottomToolbar.items = @[self.cancelButton, self.flexibleBarSpace, self.saveButton];
+        self.bottomToolbar.items = @[self.doneButton, self.flexibleBarSpace, self.saveButton];
+        self.saveButton.enabled = NO;
     }
     else
     {
@@ -120,7 +121,44 @@
     }
 }
 
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+
+    if (!self.book)
+    {
+        Book *book = self.books[indexPath.row];
+
+        if ([self.myFriend.books containsObject:book])
+        {
+            [self.myFriend removeBooksObject:book];
+        }
+        else
+        {
+            [self.myFriend addBooksObject:book];
+        }
+
+        [self.moc save:nil];
+        [self.tableView reloadData];
+
+    }
+
+
+}
+
 #pragma mark - text field delegate methods
+
+- (void)textFieldDidBeginEditing:(UITextField *)textField
+{
+    self.saveButton.enabled = YES;
+}
+
+- (void)textFieldDidEndEditing:(UITextField *)textField
+{
+    if ([self.titleTextField.text isEqualToString:@""] && [self.authorTextField.text isEqualToString:@""])
+    {
+        self.saveButton.enabled = NO;
+    }
+}
 
 
 
@@ -137,13 +175,14 @@
     [sender resignFirstResponder];
 }
 
-- (IBAction)onCancelButtonPressed:(UIBarButtonItem *)sender
+- (IBAction)onDoneButtonPressed:(UIBarButtonItem *)sender
 {
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (IBAction)onSaveButtonPressed:(UIBarButtonItem *)sender
 {
+
     if (![self.titleTextField.text isEqualToString:@""])
     {
         Book *book = [NSEntityDescription insertNewObjectForEntityForName:NSStringFromClass([Book class]) inManagedObjectContext:self.moc];
@@ -151,13 +190,15 @@
         book.author = self.authorTextField.text;
 
         [self.myFriend addBooksObject:book];
-        self.book = book;
+//        self.book = book;
         [self.moc save:nil];
         [self loadMOC];
-        self.titleTextField.text = @"";
     }
 
-    [self dismissViewControllerAnimated:YES completion:nil];
+    self.titleTextField.text = @"";
+    self.authorTextField.text = @"";
+
+    self.saveButton.enabled = NO;
 }
 
 - (IBAction)onAddCommentPressed:(UIBarButtonItem *)sender
